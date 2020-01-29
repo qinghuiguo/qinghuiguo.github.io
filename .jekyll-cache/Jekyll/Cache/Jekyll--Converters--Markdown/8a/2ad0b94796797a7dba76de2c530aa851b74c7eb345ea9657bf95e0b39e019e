@@ -1,0 +1,159 @@
+I"�<ul id="markdown-toc">
+  <li><a href="#搭建过程" id="markdown-toc-搭建过程">搭建过程</a>    <ul>
+      <li><a href="#安装ruby" id="markdown-toc-安装ruby">安装Ruby</a></li>
+      <li><a href="#安装rubygems" id="markdown-toc-安装rubygems">安装RubyGems</a></li>
+      <li><a href="#用rubygems安装jekyll" id="markdown-toc-用rubygems安装jekyll">用RubyGems安装Jekyll</a></li>
+      <li><a href="#创建博客" id="markdown-toc-创建博客">创建博客</a></li>
+    </ul>
+  </li>
+  <li><a href="#后续" id="markdown-toc-后续">后续</a></li>
+  <li><a href="#可能出现的问题" id="markdown-toc-可能出现的问题">可能出现的问题</a>    <ul>
+      <li><a href="#hitimeshitimes-loaderror" id="markdown-toc-hitimeshitimes-loaderror"><code class="highlighter-rouge">hitimes/hitimes (LoadError)</code></a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>一直以来都想搭建一个自己的博客，但是近半年做项目太忙，再加上教研室的网络很坑爹，所以也一直没顾得上。之前用过 WordPress 托管在免费的京东云擎上，但是速度太慢。在知乎上看到一些相关的内容，于是选择了在github上用jekyll搭建博客。</p>
+
+<h2 id="搭建过程">搭建过程</h2>
+
+<p>在jekyll的官网上 <a href="http://jekyllrb.com/">http://jekyllrb.com/</a> 其实已经说得比较明白了，我在这里还是简单的说一下吧。我用的是Windows系统。  <br />
+主要环节有：安装Ruby，安装RubyGems，安装jekyll，安装代码高亮插件，安装node.js</p>
+
+<h3 id="安装ruby">安装Ruby</h3>
+
+<p>ruby官网下载安装：<a href="https://www.ruby-lang.org/en/downloads/">https://www.ruby-lang.org/en/downloads/</a></p>
+
+<p>安装完成后配置环境变量</p>
+
+<p>在命令提示符中，得到ruby版本号，如下图，即安装成功</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/7011d6cfjw1f2ue0e393vj20cu00t748.jpg" alt="" /></p>
+
+<h3 id="安装rubygems">安装RubyGems</h3>
+
+<p>官网下载 <a href="http://rubygems.org/pages/download">http://rubygems.org/pages/download</a> rubygems-2.4.5.zip</p>
+
+<p>cd到RubyGems目录</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/7011d6cfjw1f2ue1l2yscj20gk02amxj.jpg" alt="" /></p>
+
+<p>执行安装</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/7011d6cfjw1f2ue1w8eqnj20bx00hglg.jpg" alt="" /></p>
+
+<h3 id="用rubygems安装jekyll">用RubyGems安装Jekyll</h3>
+
+<p>执行下面的语句安装</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/7011d6cfjw1f2ue2g2p3uj207x00ft8j.jpg" alt="" /></p>
+
+<p>安装结束画面</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/7011d6cfjw1f2ue32drwhj20hv09xq5m.jpg" alt="" /></p>
+
+<p>至此jekyll就已经安装完毕了，后续就是个性化的自己设定了。</p>
+
+<h3 id="创建博客">创建博客</h3>
+
+<p>在d盘新建一个工作区jekyllWorkspace</p>
+
+<p>cd到jekyllWorkspace</p>
+
+<p>执行jekyll new name创建新的工作区</p>
+
+<p><img src="http://ww3.sinaimg.cn/large/7011d6cfjw1f2ue3lt31nj20cj02nt8u.jpg" alt="" /></p>
+
+<p>文件结构如下：</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/7011d6cfjw1f2ue3ujsybj20ek06wabh.jpg" alt="" /></p>
+
+<p>cd到博客文件夹，开启服务器</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/7011d6cfjw1f2ue47y9lgj20ao00f0sl.jpg" alt="" /></p>
+
+<p>watch为了检测文件夹内的变化，即修改后不需要重新启动jekyll</p>
+
+<p>我的环境下启动报错(你的可能没有)，再安装yajl-ruby和rouge</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/7011d6cfjw1f2ue4nelnxj20dd077q49.jpg" alt="" /></p>
+
+<p>再次启动服务器成功</p>
+
+<p><img src="http://ww4.sinaimg.cn/large/7011d6cfjw1f2ue4v42koj20g505bdgy.jpg" alt="" /></p>
+
+<p>访问 http://localhost:4000/</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/7011d6cfjw1f2ue56ckwoj20je0eumz3.jpg" alt="" /></p>
+
+<p>详细文章页面</p>
+
+<p><img src="http://ww2.sinaimg.cn/large/7011d6cfjw1f2ue5f3j9cj20je0gyq7a.jpg" alt="" /></p>
+
+<h2 id="后续">后续</h2>
+
+<ul>
+  <li>整个安装过程参考了jekyll官网，注意jekyll还有一个简体中文官网，不过比较坑（我就被坑了），有些内容没有翻译过来，有可能会走弯路，建议如果想看中文的相关资料，也要中英对照着阅读。<a href="http://jekyllcn.com">jekyll中文网 http://jekyllcn.com</a>, <a href="http://jekyllrb.com">jekyll英文网 http://jekyllrb.com</a></li>
+  <li>jekyll中的css是用sass写的，当然直接在<code class="highlighter-rouge">_sass/_layout.scss</code>中添加css也是可以的。</li>
+  <li>本文是用Markdown格式来写的，相关语法可参考： <a href="http://wowubuntu.com/markdown/">Markdown 语法说明 (简体中文版) http://wowubuntu.com/markdown/</a></li>
+  <li>按照本文的说明搭建完博客后，用<code class="highlighter-rouge">github Pages</code>托管就可以看到了。注意，在github上面好像不支持rouge，所以要push到github上时，我将配置文件_config.yml中的代码高亮改变为<code class="highlighter-rouge">highlighter: pygments</code>就可以了</li>
+  <li>博客默认是没有评论系统的，本文的评论系统使用了多说，详细安装办法可访问<a href="http://duoshuo.com/">多说官网 http://duoshuo.com/</a>，当然也可以使用<a href="http://changyan.sohu.com/">搜狐畅言 http://changyan.sohu.com/</a>作为评论系统。</li>
+  <li>也可以绑定自己的域名，如果没有域名，可以在<a href="http://www.godaddy.com/">godaddy http://www.godaddy.com/</a>上将域名放入购物车等待降价，买之。</li>
+  <li>祝各位新年快乐！</li>
+</ul>
+
+<hr />
+
+<h2 id="可能出现的问题">可能出现的问题</h2>
+
+<h3 id="hitimeshitimes-loaderror"><code class="highlighter-rouge">hitimes/hitimes (LoadError)</code></h3>
+
+<p><strong>错误代码：</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:/Ruby22/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require': cannot load such file -- hitimes/hitimes (LoadError)
+</code></pre></div></div>
+
+<p><strong>解决方法：</strong></p>
+
+<p>在stackoverflow上又一个很好的解决方法。<a href="http://stackoverflow.com/questions/28985481/hitimes-require-error-when-running-jekyll-serve-on-windows-8-1">hitimes require error when running jekyll serve on windows 8.1</a> 虽然上面的题主问的是 win 8.1 系统下的情况，但是同样适用于 win7。下面我简单翻译一下错误原因和解决方法。</p>
+
+<blockquote>
+  <p>可能是 Ruby 2.2 和 hitimes-1.2.2-x86-mingw32 中有一些 ABI 变化，少了一些相关的类库。</p>
+
+  <p>所以卸载 hitimes 并通过 <code class="highlighter-rouge">--platform ruby</code> 重装即可。代码如下：</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem uni hitimes
+**Remove ALL versions**
+gem ins hitimes -v 1.2.1 --platform ruby
+</code></pre></div></div>
+
+<blockquote>
+  <p>然后将自动重新编译 hitimes 并适用于 Ruby 2.2</p>
+</blockquote>
+
+<p>下面是我自己的卸载和安装过程：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>E:\GitWorkSpace\gaohaoyang.github.io&gt;gem uni hitimes
+
+You have requested to uninstall the gem:
+        hitimes-1.2.2-x86-mingw32
+
+timers-4.0.1 depends on hitimes (&gt;= 0)
+If you remove this gem, these dependencies will not be met.
+Continue with Uninstall? [yN]  y
+Successfully uninstalled hitimes-1.2.2-x86-mingw32
+
+E:\GitWorkSpace\gaohaoyang.github.io&gt;gem ins hitimes -v 1.2.1 --platform ruby
+Fetching: hitimes-1.2.1.gem (100%)
+Temporarily enhancing PATH to include DevKit...
+Building native extensions.  This could take a while...
+Successfully installed hitimes-1.2.1
+Parsing documentation for hitimes-1.2.1
+Installing ri documentation for hitimes-1.2.1
+Done installing documentation for hitimes after 1 seconds
+1 gem installed
+</code></pre></div></div>
+
+<p>关于，<a href="https://rubygems.org/gems/hitimes/versions/1.2.2">hitimes</a> 是一个快速的高效的定时器解决方案库，详情可以去官网查看。</p>
+:ET
