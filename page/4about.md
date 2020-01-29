@@ -23,17 +23,12 @@ type: page
 
 还有，学习是一个非常愉快的过程。共同加油！
 
-* 2016.6.30 入职阿里巴巴天猫事业部
-* 2016.6 毕业于西安交通大学 软件工程硕士
-* 2015.12 获得2014-2015学年二等奖学金
-* 2015.7-2015.8 联想服务，前端开发工程师（实习生）
-* 2013.6 毕业于西安交通大学 理学院
-* 2001 获得西航四校总成绩年级排名第八名
+
 
 ## 联系我
 
 * GitHub：[Gaohaoyang](https://github.com/Gaohaoyang)
-* email：gaohaoyang126@126.com
+* email：qinghui.guo@foxmail.com
 * [Weibo](http://weibo.com/3115521wh)
 * [知乎](https://www.zhihu.com/people/gaohaoyang)
 * [Facebook](https://www.facebook.com/gaohaoyang.water)
