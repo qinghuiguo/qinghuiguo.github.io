@@ -59,4 +59,3 @@ excerpt_separator: "\n\n\n\n"
 plugins: [jekyll-paginate]
 paginate: 6
 port: 4001
-theme: jekyll-theme-minimal
