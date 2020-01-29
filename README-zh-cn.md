@@ -1,14 +1,14 @@
 # 关于这个简洁明快的博客主题 🤘🤘🤘
 
-[![GitHub stars](https://img.shields.io/github/stars/Gaohaoyang/gaohaoyang.github.io.svg)](https://github.com/Gaohaoyang/gaohaoyang.github.io/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Gaohaoyang/gaohaoyang.github.io.svg)](https://github.com/Gaohaoyang/gaohaoyang.github.io/network)
-[![GitHub issues](https://img.shields.io/github/issues/Gaohaoyang/gaohaoyang.github.io.svg)](https://github.com/Gaohaoyang/gaohaoyang.github.io/issues)
-[![GitHub release](https://img.shields.io/github/release/Gaohaoyang/gaohaoyang.github.io.svg)](https://github.com/Gaohaoyang/gaohaoyang.github.io/releases)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Gaohaoyang/gaohaoyang.github.io/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/qinghuiguo/qinghuiguo.github.io.svg)](https://github.com/qinghuiguo/qinghuiguo.github.io/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/qinghuiguo/qinghuiguo.github.io.svg)](https://github.com/qinghuiguo/qinghuiguo.github.io/network)
+[![GitHub issues](https://img.shields.io/github/issues/qinghuiguo/qinghuiguo.github.io.svg)](https://github.com/qinghuiguo/qinghuiguo.github.io/issues)
+[![GitHub release](https://img.shields.io/github/release/qinghuiguo/qinghuiguo.github.io.svg)](https://github.com/qinghuiguo/qinghuiguo.github.io/releases)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/qinghuiguo/qinghuiguo.github.io/master/LICENSE)
 
 随着 jekyll 的版本升级，同时我也想重构我的旧版博客主题，因此在这个月对博客进行了重构加改版，这个仓库存放我的新博客，并且我也会一直使用这个主题。目前基本改版完成，后续可能还会有些细节上的修补。
 
-**博客访问地址：[http://gaohaoyang.github.io/](http://gaohaoyang.github.io/)**。若您喜欢这个新的博客主题，请给我个star以示鼓励吧，欢迎大家使用。
+**博客访问地址：[http://qinghuiguo.github.io/](http://qinghuiguo.github.io/)**。若您喜欢这个新的博客主题，请给我个star以示鼓励吧，欢迎大家使用。
 
 ## 目录
 
@@ -48,10 +48,10 @@
 先上预览图：
 
 主页
-![index](http://ww3.sinaimg.cn/large/7011d6cfjw1f3bdli86awj211k0oyqen.jpg)
+![index]()
 
 文章页
-![post](http://ww4.sinaimg.cn/large/7011d6cfjw1f3bdmzb9v6j210p0j7gwn.jpg)
+![post]()
 
 ## 各部分详情
 
