@@ -7,21 +7,21 @@
 
 # Site settings
 title: qinghui的技术专栏
-brief-intro: Android and Python Coder
+brief-intro: CLOUD AND DATABASE
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://qinghuiguo.github.io" # the base hostname & protocol for your site
 
 permalink: /:year/:month/:day/:title/
 
 # other links
-twitter_username: #gaohaoyang126
-facebook_username: #gaohaoyang.water
-github_username:  643435675
+#stwitter_username: #gaohaoyang126
+#facebook_username: #gaohaoyang.water
+github_username:  qinghuiguo
 email: qinghui.guo@foxmail.com
-weibo_username: 3115521wh
-zhihu_username: hll643435675
-linkedIn_username: gaohaoyang
-dribbble_username:
+#weibo_username: 3115521wh
+#zhihu_username: hll643435675
+#linkedIn_username: gaohaoyang
+#sdribbble_username:
 
 description_footer: 来自qinghui的个人专栏！
 
