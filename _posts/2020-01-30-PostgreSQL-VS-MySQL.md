@@ -5,12 +5,11 @@ date:   2020-01-30 09:40:18 +0800
 categories: PostgreSQL
 tags: PostgreSQL VS MySQL 
 author: qinghui.guo
+mathjax: true
 ---
 
 * content
 {:toc}
-
-
 >本文介绍MySQL和PostgreSQL的一些特性对比，让大家了解二者的优劣，更好的做出选择。当前国内的现状，互联网公司使用MySQL的较多，PostgreSQL的使用比例反而不高，相信看到PG的新特性后，你会爱上她。当然MySQL作为最流行的数据库，依然会吸引大部分人的眼球。
 
 PostgreSQL标榜自己是世界上最先进的开源数据库,甚至PG粉丝或者一些PGER宣称，她可以和Oracle相媲美（*虽然PG很强大，但是和Oracle还是有差距的，当然PG优势也是显而易见的*），而且没有那么昂贵的价格和傲慢的客服。当然PG功能完善和强大，最早始于9版本，在10版本快速发展，增加很多功能和特性。PostgreSQL是完全由社区驱动的开源项目，他的核心代码，都是由社区维护，商用版本都是基于PG做的二次开发，像国内的瀚高公司，乘数科技，国外的第二象限，EDB。

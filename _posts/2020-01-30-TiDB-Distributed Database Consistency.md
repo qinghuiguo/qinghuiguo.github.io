@@ -3,23 +3,17 @@ layout: post
 title:  "TiDB-分布式数据库数据强一致性的实现"
 date:   2020-01-30 09:40:18 +0800
 categories: TiDB
-tags: TiDB，TiKV，PD，RAFT协议，gRPC，RocksDB
+tags: TiDB TiKV PD RAFT协议 gRPC RocksDB
 author: qinghui.guo
+mathjax: true
 ---
 
 * content
 {:toc}
-
-
 本文介绍TiDB的一些基本概念、基本实现原理以及运用的一些开源技术，当然需要说明的是，TiDB不是平常理解的数据库，它是一套架构，通过几个组件的互相调用和一些分布式原理实现。
 
----------
-
-
 ## 基本概念和相关分布式原理介绍
-
 ### gRPC：
-
 （http://www.oschina.net/p/grpc-framework）
 gRPC()  是一个高性能、开源和通用的 RPC 框架，面向移动和 HTTP/2 设计。
 
