@@ -1,5 +1,3 @@
-##数据库实例崩溃恢复-Oracle
-
 ---
 layout: post
 title:  "数据库实例崩溃恢复-Oracle"
