@@ -1,0 +1,13 @@
+I"
+<blockquote>
+  <p>本文介绍MySQL和PostgreSQL的一些特性对比，让大家了解二者的优劣，更好的做出选择。当前国内的现状，互联网公司使用MySQL的较多，PostgreSQL的使用比例反而不高，相信看到PG的新特性后，你会爱上她。当然MySQL作为最流行的数据库，依然会吸引大部分人的眼球。</p>
+</blockquote>
+
+<p>PostgreSQL标榜自己是世界上最先进的开源数据库,甚至PG粉丝或者一些PGER宣称，她可以和Oracle相媲美（<em>虽然PG很强大，但是和Oracle还是有差距的，当然PG优势也是显而易见的</em>），而且没有那么昂贵的价格和傲慢的客服。当然PG功能完善和强大，最早始于9版本，在10版本快速发展，增加很多功能和特性。PostgreSQL是完全由社区驱动的开源项目，他的核心代码，都是由社区维护，商用版本都是基于PG做的二次开发，像国内的瀚高公司，乘数科技，国外的第二象限，EDB。</p>
+
+<p>MySQL	声称自己是最流行的开源数据。看现在国内的现状，称得上名副其实。MySQL被卖几次后，最终落到Oracle公司的囊中。正是因此，MySQL之父Monty，修改了MySQL的源代码，创立了MariaDB分支。当然不得不提另一个重要的分支，percana公司的Percona Server。Percona公司更擅长MySQL运维，开发了很多非常实用运维工具，而且都已经开源，并回馈给社区，像XtraBackup和pt-Toolkits工具。</p>
+
+<p>简单对比MySQL和PostgreSQL发现，MySQL背后是成熟的商业公司（<em>Oracle有自己的MySQL企业版，收费，有许多社区版没有的 特性</em>），而PostgreSQL背后是一个庞大的志愿开发组，相比而言，PostgreSQL的商业性质更少一些，他没有所谓的PostgreSQL企业版，但是存在基于PG开发的一些企业级的PG数据库，比如EDB，Highgo DB。</p>
+
+<p>下面我将从以下几个方面阐述MySQL和PostgreSQL的异同和优劣，由于笔者水平的限制，不当之处，还请大家多提意见。</p>
+:ET

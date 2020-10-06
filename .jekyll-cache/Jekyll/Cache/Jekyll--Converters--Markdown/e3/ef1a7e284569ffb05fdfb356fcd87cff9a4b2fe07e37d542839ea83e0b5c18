@@ -1,0 +1,384 @@
+I"�B<ul id="markdown-toc">
+  <li><a href="#一-pmm简介" id="markdown-toc-一-pmm简介">一、 PMM简介：</a></li>
+  <li><a href="#二pmm架构解析" id="markdown-toc-二pmm架构解析">二、PMM架构解析</a>    <ul>
+      <li><a href="#client客户端" id="markdown-toc-client客户端">Client客户端</a></li>
+      <li><a href="#pmm-server" id="markdown-toc-pmm-server">PMM Server</a></li>
+    </ul>
+  </li>
+  <li><a href="#三--pmm部署" id="markdown-toc-三--pmm部署">三 、 PMM部署：</a></li>
+  <li><a href="#31-环境介绍" id="markdown-toc-31-环境介绍">3.1 环境介绍：</a>    <ul>
+      <li><a href="#32-docker部署pmm" id="markdown-toc-32-docker部署pmm">3.2 docker部署pmm</a></li>
+      <li><a href="#33不要关闭防火墙" id="markdown-toc-33不要关闭防火墙">3.3不要关闭防火墙</a></li>
+    </ul>
+  </li>
+  <li><a href="#34安装配置client" id="markdown-toc-34安装配置client">3.4安装配置client</a>    <ul>
+      <li><a href="#34配置监控项" id="markdown-toc-34配置监控项">3.4配置监控项</a></li>
+    </ul>
+  </li>
+  <li><a href="#四-pmm监控优劣" id="markdown-toc-四-pmm监控优劣">四 、PMM监控优劣</a></li>
+  <li><a href="#为什么选择pmm" id="markdown-toc-为什么选择pmm">为什么选择PMM</a></li>
+  <li><a href="#pmm的缺点" id="markdown-toc-pmm的缺点">PMM的缺点</a></li>
+</ul>
+
+<blockquote>
+  <p>PMM是一款开源的用于管理和监控MySQL、PostgreSQL和MongoDB性能的开源平台，通过docker部署，但是本文没有介绍docker。有兴趣的同学可以了解下服务部署容器化的概念，据说阿里的RDS（MySQL）使用DOCKER部署的。</p>
+</blockquote>
+
+<h1 id="一-pmm简介">一、 PMM简介：</h1>
+<p>Percona Monitoring and Management (PMM)是一款开源的用于管理和监控MySQL、PostgreSQL和MongoDB性能的开源平台，通过PMM客户端收集到的DB监控数据用第三方软件Grafana画图展示出来。</p>
+
+<p>PMM提供了对MyISAM、InnoDB、TokuDB、PostgreSQL和PXC/Glarera的监控，另外也提供了Query Analytics的功能，可以检视执行了哪些SQL指令，并对执行效能较差的语法进行优化。另外在新版本还支持了MySQL复制拓扑图结构构造。</p>
+
+<p>PMM针对操作系统的部份也提供了硬盘、网络、CPU和RAM的监控，特别的是它提供了Context switches、Processes和interrupts的监控，Context Switches可以看到CPU上下切换文的状况，Processes可以方便了解系统有多少程序在等待I/O。</p>
+
+<h1 id="二pmm架构解析">二、PMM架构解析</h1>
+<p>PMM平台基于cs架构，可支持扩展。它包括以下模块：</p>
+
+<ul>
+  <li>
+    <p>PMM客户端安装在要监视的每个数据库主机上。 它收集服务器指标，常规系统指标和查询分析数据，以获得完整的性能概述。</p>
+  </li>
+  <li>
+    <p>PMM Server是PMM的核心部分，它聚合收集的数据并以Web界面中的表格，仪表板和图形的形式呈现。</p>
+  </li>
+</ul>
+
+<p>这些模块的封装便于安装和使用。 假设用户不需要了解构成每个模块的确切工具以及它们如何交互。 但是，如果您想充分发挥PMM的潜力，了解内部结构非常重要。</p>
+
+<p>PMM是一系列旨在无缝协同工作的工具。 有些是由Percona开发的，有些是第三方开源工具。</p>
+
+<blockquote>
+  <p>注意 
+整体C-S架构不太可能改变，但组成每个组件的工具集可能随产品而变化。</p>
+</blockquote>
+
+<p>下图说明了PMM当前的结构</p>
+
+<h2 id="client客户端">Client客户端</h2>
+<p>每个PMM客户端收集有关一般系统和数据库性能的各种数据，并将此数据发送到相应的PMM服务器。</p>
+
+<p>PMM客户端软件包包含以下内容：</p>
+
+<ul>
+  <li>
+    <p>pmm-admin是用于管理PMM客户端的命令行工具，例如，添加和删除要监视的数据库实例。 有关更多信息，请参阅管理PMM客户端 。</p>
+  </li>
+  <li>
+    <p>pmm-mysql-queries-0是一个管理QAN代理的服务，它从MySQL收集查询性能数据并将其发送到PMM Server上的QAN API。</p>
+  </li>
+  <li>
+    <p>pmm-mongodb-queries-0是一个管理QAN代理的服务，它从MongoDB收集查询性能数据并将其发送到PMM Server上的QAN API。</p>
+  </li>
+  <li>
+    <p>node_exporter 是一个用于收集常规系统指标的Prometheus exporter。</p>
+  </li>
+  <li>
+    <p>mysqld_exporter是一个收集MySQL指标的Prometheus exporter。</p>
+  </li>
+  <li>
+    <p>mongodb_exporter是一个收集MongoDB指标的的Prometheus exporter。</p>
+  </li>
+  <li>
+    <p>proxysql_exporter是一个用于收集ProxySQL性能指标的Prometheus exporter。</p>
+  </li>
+  <li>
+    <p>postgres_exporter是一个用于收集PostgreSQL性能指标的exporter。</p>
+  </li>
+</ul>
+
+<h2 id="pmm-server">PMM Server</h2>
+<p>PMM Server在将作为中央监控主机的计算机上运行。 它通过以下方式作为应用分发：</p>
+
+<ul>
+  <li>
+    <p>可用于运行容器的Docker镜像</p>
+  </li>
+  <li>
+    <p>您可以在VirtualBox或其他虚拟机监控程序中运行的OVA。</p>
+  </li>
+  <li>
+    <p>您可以通过Amazon Web Services运行的AMI 。</p>
+  </li>
+</ul>
+
+<p>有关更多信息，请参阅安装PMM Server 。</p>
+
+<p>PMM Server包括以下工具：</p>
+
+<ul>
+  <li>
+    <p>Query Analytics(QAN)可以分析一段时间内的MySQL查询性能。 除客户端QAN代理外，还包括以下内容：</p>
+
+    <ul>
+      <li>QAN API是用于存储和访问在PMM客户端上运行的QAN代理收集的查询数据的后端。</li>
+      <li>QAN Web App是一个用于可视化收集的Query Analytics数据的Web应用程序。</li>
+    </ul>
+  </li>
+  <li>
+    <p>Metrics Monitor(MM)提供组件提供了MySQL、PostgreSQL和MongoDB历史监控信息。 它包括以下内容：</p>
+
+    <ul>
+      <li>Percona仪表板是Percona开发的Grafana仪表板。</li>
+      <li>Orchestrator是一个MySQL复制拓扑管理和可视化工具。 有关更多信息，请参阅： Orchestrator手册。</li>
+      <li>Consul提供了一个API， PMM客户端可以使用该API为Prometheus远程列出、添加和删除的主机。 它还存储监控元数据。 有关更多信息，请参阅Consul Docs 。</li>
+      <li>Prometheus是第三方时间序列数据库，它连接到在PMM客户端上运行的exporter并聚合由exporter收集的数据。 有关更多信息，请参阅Prometheus文档 。</li>
+      <li>Grafana是第三方仪表板和图形构建器，用于可视化Prometheus中聚合的数据，以Web呈现。 有关更多信息，请参阅Grafana文档 。</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="三--pmm部署">三 、 PMM部署：</h1>
+<h1 id="31-环境介绍">3.1 环境介绍：</h1>
+
+<p>|主机名 |	IP	|实例|操作系统|
+|:—- | :—- :—- | :—-|
+|pmm-server|	192.168.56.10|	PMM实例|	CentOS 7.4.1708|
+|server0	|192.168.56.20|	PostgreSQL|	Red Hat 6.5|
+|centos1	|192.168.56.21|	MySQL|	CentOS 6.8|
+|server2	|192.168.56.22|	MySQL|	Red Hat 6.5|
+|server3	|192.168.56.23|	MySQL|	Red Hat 6.5|</p>
+<h2 id="32-docker部署pmm">3.2 docker部署pmm</h2>
+<p>安装依赖包</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum install yum-utils device-mapper-persistent-data lvm2
+</code></pre></div></div>
+<p>配置稳定仓库</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+# yum-config-manager --add-repo https://mirrors.aliyun/docker-ce/linux/
+
+# yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+</code></pre></div></div>
+<p>安装指定版本docker</p>
+
+<p>需要注意docker-ce 和docker-ce-selinux依赖关系</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@pmm-server1 ~]#  yum list docker-ce --showduplicates | sort -r
+
+[root@pmm-server1 ~]# yum list docker-ce-selinux --showduplicates | sort -r
+
+[root@pmm-server1 ~]# yum install  --setopt=obsoletes=0 \
+
+docker-ce-17.03.2.ce-1.el7.centos.x86_64 \
+
+docker-ce-selinux-17.03.2.ce-1.el7.centos.noarch
+</code></pre></div></div>
+<p>启动docker</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@pmm-server1 ~]# systemctl start docker
+
+[root@pmm-server1 ~]# systemctl status docker
+</code></pre></div></div>
+<p>Pulling the PMM Server Image</p>
+
+<p>镜像拉取速度较慢，失败多次，网速要求高。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nohup docker pull percona/pmm-server:latest &amp;
+</code></pre></div></div>
+<p>创建pmm-data容器</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker create -v /opt/prometheus/data -v /opt/consul-data -v /var/lib/mysql -v /var/lib/grafana --name pmm-data percona/pmm-server:latest /bin/true
+</code></pre></div></div>
+<p>创建和启动pmm-server容器</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d -e ORCHESTRATOR_ENABLED=true -e METRICS_RETENTION=720h -e SERVER_USER=admin -e SERVER_PASSWORD=mysql -p 80:80 -p 443:443 --name pmm-server --volumes-from pmm-data percona/pmm-server:latest
+</code></pre></div></div>
+<p>检查docker状态</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat -tunlp | grep docker
+
+docker ps
+</code></pre></div></div>
+<h2 id="33不要关闭防火墙">3.3不要关闭防火墙</h2>
+
+<p>pmm-server需要开启如下端口。</p>
+
+<blockquote>
+  <p>CentOS7使用firewalld服务，不需要配置ipttables（该服务默认未安装）</p>
+</blockquote>
+
+<p>主机信息监控端口：linux:metrics</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>firewall-cmd --permanent --zone=public --add-port=42000/tcp 
+
+慢查询性能数据端口：
+
+firewall-cmd --permanent --zone=public --add-port=42001/tcp
+
+MySQL实例监控端口：mysql:metrics
+
+firewall-cmd --permanent --zone=public --add-port=42002/tcp
+
+MongoDB实例监控端口：mongodb:metrics
+
+firewall-cmd --permanent --zone=public --add-port=42003/tcp 
+
+ProxySQL监控端口：proxysql:metrics
+
+firewall-cmd --permanent --zone=public --add-port=42004/tcp
+
+PostgreSQL实例监控端口postgresql:metrics
+
+firewall-cmd --permanent --zone=public --add-port=42005/tcp 
+
+firewall-cmd --list-all 
+
+firewall-cmd --reload
+</code></pre></div></div>
+<h1 id="34安装配置client">3.4安装配置client</h1>
+<p>下载client端,下载地址</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># tar xvf  pmm-client-1.17.0.tar.gz
+
+****
+
+# cd  pmm-client-1.17.0.tar.gz
+
+
+
+# ./install
+</code></pre></div></div>
+<h2 id="34配置监控项">3.4配置监控项</h2>
+<p>把client注册到server端，每个client端都需要注册</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pmm-admin config --server 192.168.56.10 --server-user admin --server-password oracle
+
+cat /usr/local/percona/pmm-client/pmm.yml
+</code></pre></div></div>
+<p>收集mysql性能数据</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@centos1 log]# pmm-admin add mysql --user root --password 123456 --host localhost
+
+
+
+[root@centos1 log]# pmm-admin list 
+
+pmm-admin 1.17.0
+
+
+
+PMM Server      | 192.168.56.10 (password-protected)
+
+Client Name     | centos1
+
+Client Address  | 192.168.56.21 
+
+Service Manager | linux-upstart
+
+
+
+-------------- -------- ----------- -------- ----------------------------------------- --------------------------------------------------------------------------------------
+
+SERVICE TYPE   NAME     LOCAL PORT  RUNNING  DATA SOURCE                               OPTIONS                                                                              
+
+-------------- -------- ----------- -------- ----------------------------------------- --------------------------------------------------------------------------------------
+
+mysql:queries  centos1  -           YES      root:***@unix(/var/lib/mysql/mysql.sock)  query_source=slowlog, query_examples=true, slow_log_rotation=true, retain_slow_logs=1 
+
+linux:metrics  centos1  42000       YES      -                                                                                                                              
+
+mysql:metrics  centos1  42002       YES      root:***@unix(/var/lib/mysql/mysql.sock)  
+</code></pre></div></div>
+<p>MySQL监控首页</p>
+
+<p>收集PostgreSQL性能数据 
+添加的监控项</p>
+
+<p>linux:metrics :系统数据 
+postgresql:metrics： 
+开启PG的IO统计 
+ALTER SYSTEM SET track_io_timing=ON; 
+SELECT pg_reload_conf();</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pmm-admin add postgresql --host=localhost --password='123456' --port=5432 --user=postgres
+
+
+
+[root@server0 ~]# pmm-admin list 
+
+pmm-admin 1.17.0
+
+
+
+PMM Server      | 192.168.56.10 (password-protected)
+
+Client Name     | server0
+
+Client Address  | 192.168.56.20 
+
+Service Manager | linux-upstart
+
+
+
+------------------- -------- ----------- -------- --------------------------------------- --------
+
+SERVICE TYPE        NAME     LOCAL PORT  RUNNING  DATA SOURCE                             OPTIONS 
+
+------------------- -------- ----------- -------- --------------------------------------- --------
+
+linux:metrics       server0  42000       YES      -                                              
+
+postgresql:metrics  server0  42005       YES      postgresql:***@localhost:5432/postgres  
+
+</code></pre></div></div>
+<p>PostgreSQL监控首页</p>
+
+<h1 id="四-pmm监控优劣">四 、PMM监控优劣</h1>
+<p>*本章参考文档：本节原文地址</p>
+
+<h1 id="为什么选择pmm">为什么选择PMM</h1>
+<ul>
+  <li>
+    <p>监控信息最全，开源的监控方案我用过zabbix,open-falcon,自己采集+ES+Kibana/grafana。采集的指标项很多是数据有误，不及时，或者根本无数据。这样的抽风的监控系统会给自己的分析带来不自信，有存在的必要吗？</p>
+  </li>
+  <li>
+    <p>界面最直观，细节较多。你能想到的，想不到的都给你提供了。这对我这样菜逼DBA来说是很重要的。可以根据监控图形趋势猜出实例crash或者高负载前后的信息。信息少的监控系统分析不出什么花样来，瞎抠浪费时间。</p>
+  </li>
+  <li>
+    <p>支持的数据库类型最多，PG/MySQL(含PXC,MGR,TOKU,ROCKS)/MongoDB(含MONGOS)/OS。分析一个业务的OS/MONGODB/MYSQL性能要跨越两三个web网站，烦不烦？</p>
+  </li>
+  <li>
+    <p>支持慢查询分析,比annometer或者logstash的配置比起来简单一万倍。只要配置监控就可以，agent可以根据可调节的开关从IS或者慢日志中捕捉慢查询，高频SQL</p>
+  </li>
+  <li>
+    <p>基于grafana，可以引入oauth或者Ldap方便对现有的组织结构进行引入，根据业务对于图形进行分别授权。防止业务的活跃信息，IP等有价值信息被泄露</p>
+  </li>
+  <li>
+    <p>集成了Orchestrator用于复制拓补管理和可视化</p>
+  </li>
+</ul>
+
+<h1 id="pmm的缺点">PMM的缺点</h1>
+
+<ul>
+  <li>
+    <p>PMM 默认使用主机名作为唯一识别数据库实例的关键字。
+在docker环境下,单机单实例,实例名和主机名保持一致，比较方便，但是不对外展示IP和端口还是蹩脚。也有可能是我的视野比较窄，或许根本不需要。但是在我们这边没有数据库微服务的情况下，IP和端口还是比较关键的信息点，而且单物理机多数据库实例下的使用效果并不好。主要体现在无法使用IP对实例进行汇总</p>
+  </li>
+  <li>
+    <p>需要sudo权限</p>
+  </li>
+</ul>
+
+<p>在某些权限管理比较严格的情况下，dba没有sudo权限，无法运行pmm-client</p>
+
+<ul>
+  <li>
+    <p>服务端不好拆分
+官方采用单节点Prometheus来存储监控Metric，小环境还可以，数千数万台的情况下ova或者docker化的服务端容易爆盘。这个时候易于部署的ova或者docker分发方式反而变成了缺点。</p>
+  </li>
+  <li>
+    <p>ova分发方式修改ova密码麻烦</p>
+  </li>
+  <li>
+    <p>修改Ova的虚拟机的Linux密码后，访问监控页面也需要输入密码，agent端注册也需要密码。当然如果你不去修改Ova的密码也没问题</p>
+  </li>
+  <li>
+    <p>服务端load高</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>参考文档
+https://www.percona.com/doc/percona-monitoring-and-management/index.html 
+http://www.mamicode.com/info-detail-2518131.html 
+DEMO官网地址：http://pmmdemo.percona.com 
+数据采集工具地址： 
+node_exporter：https://github.com/percona/node_exporter 
+[mysqld_exporter：https://github.com/percona/mysqld_exporter 
+mongodb_exporter：https://github.com/percona/mongodb_exporter 
+proxysql_exporter：https://github.com/percona/proxysql_exporter 
+postgres_exporter：https://github.com/percona/postgres_exporter</p>
+</blockquote>
+
+:ET
