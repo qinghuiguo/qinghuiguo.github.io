@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Oracle PDB 强制关闭的后果"
-date:   2020-10-06 09:40 +0800
+date:   2020-10-08 09:40 +0800
 categories: Oracle
 tags: 多租户 异常关闭
 author: qinghui.guo
@@ -294,7 +294,10 @@ Completed: alter pluggable database pdb close abort
 
 >猜想得到验证，强制关闭pdb之后，由于实例正常运行，系统的scn一直往前推进，重新启动pdb需要进行meidia recover，因为系统SCN > start SCN
 
-````
+
+
+
+```
 
 2020-10-08T23:19:14.742796+08:00
 alter pluggable database pdb open 
