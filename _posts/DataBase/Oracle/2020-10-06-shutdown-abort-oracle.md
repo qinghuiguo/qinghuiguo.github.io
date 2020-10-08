@@ -358,3 +358,4 @@ Completed: alter pluggable database pdb open
 >2、pdb级别的shutdown abort 需要media recover，因为系统SCN>start SCN
 
 
+
