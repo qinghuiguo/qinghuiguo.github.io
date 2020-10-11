@@ -219,9 +219,9 @@ root@test 11:29:20>select count(*) from checksum;
 
 ## 总结
 
-1、由于MySQL的检查点较快，无法像PG那样模拟老版本数据文件应用检查点之后的redo日志，但是可以确定，MySQL使用老版本的数据文件，crash recover时回滚无效，也没有报错。
-2、恢复的起点是ibdata1第一个page记录的LSN或者dblwr中LSN,该LSN不一定是检查点。
-3、MySQL启动没有验证数据文件的一致性，较老的数据文件也可以正常读取。
+>1、由于MySQL的检查点较快，无法像PG那样模拟老版本数据文件应用检查点之后的redo日志，但是可以确定，MySQL使用老版本的数据文件，crash recover时回滚无效，也没有报错。
+>2、恢复的起点是ibdata1第一个page记录的LSN或者dblwr中LSN,该LSN不一定是检查点。
+>3、MySQL启动没有验证数据文件的一致性，较老的数据文件也可以正常读取。
 
 
 
