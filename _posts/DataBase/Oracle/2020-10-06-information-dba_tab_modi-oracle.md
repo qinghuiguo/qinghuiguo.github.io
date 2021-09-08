@@ -10,7 +10,7 @@ mathjax: true
 * content
 {:toc}
 
-##假设结论：
+## 假设结论：
 >1、create as 语法插入的数据不会记录到dba_tab_modifications视图，只会记录到dba_tab_statistics,未标记统计信息过期，但是自动任务会收集。
 >truncate table 最终会记录到dba_tab_modifications，并标记统计信息为过期。
 
