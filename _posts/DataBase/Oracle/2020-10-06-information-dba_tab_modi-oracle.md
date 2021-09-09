@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "情报分析-从dba_tab_modifications和dba_tab_statics说起"
+title:  "情报分析1-从dba_tab_modifications和dba_tab_statistics说起"
 date:   2021-09-08 20:40 +0800
 categories: Oracle
 tags: dml统计 统计信息 触发策略 
