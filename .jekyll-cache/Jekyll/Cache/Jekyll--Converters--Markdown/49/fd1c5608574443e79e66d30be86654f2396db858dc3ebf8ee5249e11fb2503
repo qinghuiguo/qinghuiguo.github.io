@@ -1,0 +1,18 @@
+I"m<ul id="markdown-toc">
+  <li><a href="#什么是crash-recover" id="markdown-toc-什么是crash-recover">什么是crash recover？</a></li>
+  <li><a href="#为什么要进行crash-recover" id="markdown-toc-为什么要进行crash-recover">为什么要进行crash recover</a></li>
+</ul>
+
+<h2 id="什么是crash-recover">什么是crash recover？</h2>
+
+<blockquote>
+  <p>由于故障导致Instance异常关闭,都会导致数据库实例在重启时执行实例恢复，由后台进程完成，不需要人工干预,恢复的时间检点之间的redo量控制。</p>
+</blockquote>
+
+<h2 id="为什么要进行crash-recover">为什么要进行crash recover</h2>
+
+<blockquote>
+  <p>正常运行期间，里面存在很多脏块，如果实例异常，导致脏块未写入磁盘，如果没有什么手段把崩溃后的脏块找回来，肯定会出现数据不一致的情况。当然关系数据库设计之初，这种情况就已经考虑了，通过重做日志，完全可以实现实例crash不丢数据。
+总而言之，所有已提交的事务，都是可以恢复的，这样才能保证数据的一致性。</p>
+</blockquote>
+:ET

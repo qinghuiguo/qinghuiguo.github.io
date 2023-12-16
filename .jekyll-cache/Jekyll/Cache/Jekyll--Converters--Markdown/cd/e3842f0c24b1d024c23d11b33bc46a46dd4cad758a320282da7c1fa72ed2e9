@@ -1,0 +1,10 @@
+I"�<ul id="markdown-toc">
+  <li><a href="#什么是oracle多租户" id="markdown-toc-什么是oracle多租户">什么是oracle多租户</a></li>
+</ul>
+
+<h2 id="什么是oracle多租户">什么是oracle多租户</h2>
+
+<blockquote>
+  <p>多租户体系架构,使得oracle 数据库成为了一个多租户的容器数据库，也就是container database，也就是CDB。而一个CDB可以包含0个、一个或者多个用户创建的可插入的数据库，也就是pluggable database，也就是PDB，也就是所谓的“租户”。这就像合租房一样，每个租户可以获得其所需的各种资源。也可以说CDB就是各PDB的母体。</p>
+</blockquote>
+:ET
